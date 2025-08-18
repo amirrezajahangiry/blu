@@ -1,0 +1,15 @@
+- name: --- read key from control node ---
+  slurp:
+        src: "{{ ssh_public_key_path }}"
+  delegate_to: localhost
+  run_once: true
+  register: pubkey_content
+  tags: key_registring
+
+- name: --- transfer keys to target inventory ---
+  authorized_key:
+        user: root
+        key: "{{ pubkey_content['content'] | b64decode }}"
+        state: present
+  tags: key-trnasfering
+      

@@ -1,0 +1,10 @@
+- name: Gather service facts
+  service_facts:
+
+- name: Ensure each service is running and enabled
+  service:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+  loop: "{{ services_to_manage }}"
+  when: item in ansible_facts.services

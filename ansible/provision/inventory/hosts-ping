@@ -1,0 +1,21 @@
+[all_servers:children]
+#red_servers              
+deb_servers
+oracle_servers
+
+[deb_servers]
+#ubuntu201                ansible_host=172.16.46.11
+ubuntu221                 ansible_host=172.16.46.12
+#debian111                ansible_host=172.16.46.14
+#debian121                ansible_host=172.16.46.15 
+
+#[red_servers]
+#centos71                 ansible_host=172.16.46.20
+
+[oracle_servers]
+oracle791                ansible_host=172.16.46.30 
+oracle801                ansible_host=172.16.46.34 
+oracle961                ansible_host=172.16.46.37
+[all_servers:vars]
+ansible_user=root
+

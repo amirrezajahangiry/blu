@@ -1,0 +1,6 @@
+- name: apt-update
+  apt:
+      update_cache: yes
+      
+- name: yum-clean-metadata
+  command: yum clean all

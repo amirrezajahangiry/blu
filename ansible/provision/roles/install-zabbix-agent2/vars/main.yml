@@ -1,0 +1,13 @@
+zabbix_agent_packages:
+  "Ubuntu-20":
+    src: "files/zabbix-agent-ubuntu20.deb"
+    dest: "/tmp/zabbix-agent-ubuntu20.deb"
+  "Ubuntu-22":
+    src: "files/zabbix-agent-ubuntu22.deb"
+    dest: "/tmp/zabbix-agent-ubuntu22.deb"
+  "Debian-11":
+    src: "files/zabbix-agent-debian11.deb"
+    dest: "/tmp/zabbix-agent-debian11.deb"
+  "Debian-12":
+    src: "files/zabbix-agent-debian12.deb"
+    dest: "/tmp/zabbix-agent-debian12.deb"

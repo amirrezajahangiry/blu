@@ -1,0 +1,22 @@
+---
+- name: Copy Zabbix Agent 2 package
+  copy:
+    src: zabbix-agent-oracle9.rpm
+    dest: /tmp/zabbix-agent-oracle9.rpm
+
+- name: Install Zabbix Agent RPM with rpm command
+  command: rpm -Uvh /tmp/zabbix-agent-oracle9.rpm
+
+- name: Deploy Zabbix Agent config
+  template:
+    src: zabbix_agent2.conf.j2
+    dest: /etc/zabbix/zabbix_agent2.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Enable and start Zabbix Agent 2
+  service:
+    name: zabbix-agent2
+    enabled: yes
+    state: started

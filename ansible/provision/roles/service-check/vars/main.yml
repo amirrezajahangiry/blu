@@ -1,0 +1,2 @@
+services_to_manage:
+      - zabbix-agent2.service

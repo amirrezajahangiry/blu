@@ -1,0 +1,27 @@
+# OL9 BaseOS
+[ol9_baseos_latest]
+name=Oracle Linux 9 BaseOS Latest
+baseurl=https://repo.homelabs.ir/repository/oracle-9-baseos/
+enabled=1
+gpgcheck=0
+
+# OL9 AppStream
+[ol9_appstream]
+name=Oracle Linux 9 AppStream
+baseurl=https://repo.homelabs.ir/repository/oracle-9-appstream/
+enabled=1
+gpgcheck=0
+
+# OL9 Addons
+[ol9_addons]
+name=Oracle Linux 9 Addons
+baseurl=https://repo.homelabs.ir/repository/oracle-9-addons/
+gpgcheck=0
+enabled=1
+
+# OL9 Epel
+[ol9_epel]
+name=Oracle Linux 9 AppStream
+baseurl=https://repo.homelabs.ir/repository/oracle-9-epel/
+enabled=1
+gpgcheck=0

@@ -1,0 +1,33 @@
+# redhat.yml
+- name: Gather service facts
+  service_facts:
+
+- name: Skip if Zabbix Agent 2 is running
+  meta: end_play
+  when:
+    - "'zabbix-agent2.service' in ansible_facts.services"
+    - ansible_facts.services['zabbix-agent2.service'].state == 'running'
+
+- name: Skip if Zabbix Agent is running
+  meta: end_play
+  when:
+    - "'zabbix-agent.service' in ansible_facts.services"
+    - ansible_facts.services['zabbix-agent.service'].state == 'running'
+
+- name: Install packages for Oracle Linux 7
+  include_tasks: oracle7.yml
+  when:
+    - ansible_distribution == "OracleLinux"
+    - ansible_distribution_major_version == "7"
+
+- name: Install packages for OracleLinux 8
+  include_tasks: oracle8.yml
+  when:
+    - ansible_distribution == "OracleLinux"
+    - ansible_distribution_major_version == "8"
+
+- name: Install packages for Oracle Linux 9
+  include_tasks: oracle9.yml
+  when:
+    - ansible_distribution == "OracleLinux"
+    - ansible_distribution_major_version == "9"

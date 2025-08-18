@@ -1,0 +1,51 @@
+- name: Gather service facts
+  service_facts:
+
+- name: Skip if Zabbix Agent 2 is running
+  meta: end_play
+  when:
+    - "'zabbix-agent2.service' in ansible_facts.services"
+    - ansible_facts.services['zabbix-agent2.service'].state == 'running'
+
+- name: Skip if Zabbix Agent is running
+  meta: end_play
+  when:
+    - "'zabbix-agent.service' in ansible_facts.services"
+    - ansible_facts.services['zabbix-agent.service'].state == 'running'
+
+- name: Build OS key
+  set_fact:
+    os_key: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}"
+
+- name: Fail if OS not supported
+  fail:
+    msg: "Unsupported OS/version: {{ os_key }}"
+  when: os_key not in zabbix_agent_packages
+
+- name: Copy Zabbix agent package to target
+  copy:
+    src: "{{ zabbix_agent_packages[os_key].src }}"
+    dest: "{{ zabbix_agent_packages[os_key].dest }}"
+    mode: '0644'
+
+- name: Install Zabbix agent package offline
+  apt:
+    deb: "{{ zabbix_agent_packages[os_key].dest }}"
+    state: present
+
+- name: Deploy Zabbix agent configuration
+  template:
+    src: zabbix_agent2.conf.j2
+    dest: /etc/zabbix/zabbix_agent2.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart zabbix-agent2
+
+- name: Enable and start Zabbix agent2 service
+  service:
+    name: zabbix-agent2
+    state: started
+    enabled: yes
+
+

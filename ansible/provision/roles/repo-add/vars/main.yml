@@ -1,0 +1,32 @@
+debian_repos:
+      "11":
+        - "deb [trusted=yes] https://repo.homelabs.ir/repository/deb-bullseye-main/ bullseye main contrib non-free "
+        - "deb [trusted=yes] https://repo.homelabs.ir/repository/deb-bullseye-main/ bullseye-updates main contrib non-free "
+        - "deb [trusted=yes] https://repo.homelabs.ir/repository/deb-bullseye-security/ bullseye-security main contrib non-free "
+      "12":
+          - deb [trusted=yes] https://repo.homelabs.ir/repository/deb-bookworm-main/ bookworm main contrib non-free non-free-firmware
+          - deb [trusted=yes] https://repo.homelabs.ir/repository/deb-bookworm-main/ bookworm-updates main contrib non-free non-free-firmware
+          - deb [trusted=yes] https://repo.homelabs.ir/repository/deb-bookworm-security/ bookworm-security main contrib non-free non-free-firmware
+ubuntu_repos:
+      "22":
+           # Jammy Base
+          - deb [trusted=yes] https://repo.homelabs.ir/repository/ubu-jammy-main/ jammy main restricted universe multiverse
+
+            # Jammy Updates
+          -  deb [trusted=yes] https://repo.homelabs.ir/repository/ubu-jammy-main/ jammy-updates main restricted universe multiverse
+
+            # Jammy Security
+          -  deb [trusted=yes] https://repo.homelabs.ir/repository/ubu-jammy-security/ jammy-security main restricted universe multiverse
+
+      "20":
+          # Focal Base
+          -   deb [trusted=yes] https://repo.homelabs.ir/repository/ubu-focal-main/ focal main restricted universe multiverse
+
+          # Focal Updates
+          -    deb [trusted=yes] https://repo.homelabs.ir/repository/ubu-focal-main/ focal-updates main restricted universe multiverse
+
+          # Focal Security
+          -    deb [trusted=yes] https://repo.homelabs.ir/repository/ubu-focal-security/ focal-security main restricted universe multiverse
+
+
+

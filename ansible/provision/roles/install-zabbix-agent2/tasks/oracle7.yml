@@ -1,0 +1,31 @@
+- name: Copy pcre2 dependency RPM
+  copy:
+    src: pcre2.rpm
+    dest: /tmp/pcre2.rpm
+
+- name: Copy Zabbix Agent RPM for Oracle 7
+  copy:
+    src: zabbix-agent-oracle7.rpm
+    dest: /tmp/zabbix-agent-oracle7.rpm
+
+- name: Install pcre2 RPM with rpm command
+  command: rpm -Uvh /tmp/pcre2.rpm
+
+
+- name: Install Zabbix Agent RPM with rpm command
+  command: rpm -Uvh /tmp/zabbix-agent-oracle7.rpm
+
+
+- name: Deploy Zabbix Agent config
+  template:
+    src: zabbix_agent2.conf.j2
+    dest: /etc/zabbix/zabbix_agent2.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Enable and start Zabbix Agent 2
+  service:
+    name: zabbix-agent2
+    enabled: yes
+    state: started

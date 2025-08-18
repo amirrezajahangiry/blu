@@ -1,0 +1,15 @@
+# OL7 BaseOS
+[ol7_baseos_latest]
+name=Oracle Linux 7 BaseOS Latest
+baseurl=https://repo.homelabs.ir/repository/oracle-7-Latest/
+enabled=1
+gpgcheck=0
+
+# OL7 AppStream
+[ol7_epel]
+name=Oracle Linux 7 AppStream
+baseurl=https://repo.homelabs.ir/repository/oracle-7-epel/
+enabled=1
+gpgcheck=0
+
+

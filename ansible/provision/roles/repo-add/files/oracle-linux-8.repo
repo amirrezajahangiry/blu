@@ -1,0 +1,27 @@
+# OL8 BaseOS
+[ol8_baseos_latest]
+name=Oracle Linux 8 BaseOS Latest
+baseurl=https://repo.homelabs.ir/repository/oracle-8-baseos/
+enabled=1
+gpgcheck=0
+
+# OL8 AppStream
+[ol8_appstream]
+name=Oracle Linux 8 AppStream
+baseurl=https://repo.homelabs.ir/repository/oracle-8-appstream/
+enabled=1
+gpgcheck=0
+
+# OL8 Addones
+[ol8_addons]
+name=Oracle Linux 8 Addons
+baseurl=https://repo.homelabs.ir/repository/oracle-8-addons/
+gpgcheck=0
+enabled=1
+
+# OL8 Epel
+[ol8_epel]
+name=Oracle Linux 8 Epel
+baseurl=https://repo.homelabs.ir/repository/oracle-8-epel/
+enabled=1
+gpgcheck=0

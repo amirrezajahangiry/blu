@@ -1,0 +1,12 @@
+- name: Include Debian tasks
+  include_tasks: tasks/debian.yml
+  when: ansible_distribution == "Debian"
+
+- name: Include Ubuntu tasks
+  include_tasks: tasks/ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
+
+- name: Include Oracle Linux tasks
+  include_tasks: tasks/oracle.yml
+  when: ansible_distribution == "OracleLinux"
+    

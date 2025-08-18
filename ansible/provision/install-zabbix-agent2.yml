@@ -1,0 +1,4 @@
+---
+- hosts: all
+  roles:
+        - install-zabbix-agent2

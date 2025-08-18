@@ -1,0 +1,22 @@
+- name: Detect Ubuntu version
+  set_fact:
+    ubuntu_version: "{{ ansible_distribution_major_version }}"
+
+- name: Remove old repo definitions
+  shell: |
+    rm -f /etc/apt/sources.list
+    rm -f /etc/apt/sources.list.d/*.list
+
+
+- name: Overwrite /etc/apt/sources.list with Nexus repos
+  copy:
+    dest: /etc/apt/sources.list
+    content: |
+      {% for repo in ubuntu_repos[ubuntu_version] %}
+      {{ repo }}
+      {% endfor %}
+    owner: root
+    group: root
+    mode: '0644'
+  notify: apt-update
+
