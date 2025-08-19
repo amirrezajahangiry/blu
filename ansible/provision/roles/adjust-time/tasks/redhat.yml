@@ -1,0 +1,24 @@
+- name: Install chrony on Oracle Linux manually
+  raw: |
+    if [ -x /usr/bin/dnf ]; then
+      dnf install -y chrony
+    elif [ -x /usr/bin/yum ]; then
+      yum install -y chrony
+    fi
+- name: Deploy chrony.conf
+  copy:
+    src: files/chrony.conf
+    dest: /etc/chrony.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart chrony
+
+- name: Enable and start chronyd service
+  systemd:
+    name: chronyd
+    enabled: yes
+    state: started
+
+
+
