@@ -1,0 +1,57 @@
+- name: Install python3-pexpect on Debian/Ubuntu
+  apt:
+        name: python3-pexpect
+        state: present
+        update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install Python 3.9 and pip on OL7/8
+  raw: |
+        dnf module -y enable python39 || true
+        dnf install -y python39 python39-pip || yum install -y python39 python39-pip || true
+  when:
+        - ansible_distribution == "OracleLinux"
+        - ansible_distribution_major_version|int in [7, 8]
+- name: Set Ansible to use Python 3.9 on OL7/8
+  set_fact:
+        ansible_python_interpreter: /usr/bin/python3.9
+  when:
+      - ansible_distribution == "OracleLinux"
+      - ansible_distribution_major_version|int in [7, 8]
+
+- name: Enable EPEL and install python3-pexpect on OL7/8
+  raw: |
+        if [ -x /usr/bin/dnf ]; then
+          dnf install -y oracle-epel-release-el{{ ansible_distribution_major_version }} || true
+          dnf install -y python3-pexpect || true
+        elif [ -x /usr/bin/yum ]; then
+          yum install -y oracle-epel-release-el{{ ansible_distribution_major_version }} || true
+          yum install -y python3-pexpect || true
+        fi
+  when:
+        - ansible_distribution == "OracleLinux"
+        - ansible_distribution_major_version|int in [7, 8]
+
+- name: Install pexpect via pip3.9 (fallback OL7/8)
+  raw: |
+        pip3.9 install pexpect
+  when:
+        - ansible_distribution == "OracleLinux"
+        - ansible_distribution_major_version|int in [7, 8]
+
+    # Oracle Linux 9: use dnf module normally
+- name: Enable EPEL on OL9
+  dnf:
+        name: oracle-epel-release-el9
+        state: present
+  when:
+      - ansible_distribution == "OracleLinux"
+      - ansible_distribution_major_version|int == 9
+
+- name: Install python3-pexpect on OL9
+  dnf:
+        name: python3-pexpect
+        state: present
+  when:
+        - ansible_distribution == "OracleLinux"
+        - ansible_distribution_major_version|int == 9

@@ -1,0 +1,40 @@
+- name: Copy Splunk forwarder archive
+  copy:
+    src: "/root/splunkforwarder-9.3.2-d8bb32809498-Linux-x86_64.tgz"
+    dest: /root
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Extract Splunk forwarder
+  shell: "tar -xvzf /root/splunkforwarder-9.3.2-d8bb32809498-Linux-x86_64.tgz -C /opt/"
+
+- name: Install Splunk and accept license
+  expect:
+    command: ./splunk start --accept-license
+    responses:
+      'Please enter an administrator username:': "{{ splunk_user }}"
+      'Please enter a new password:': "{{ splunk_pass }}"
+      'Please confirm new password:': "{{ splunk_pass }}"
+  args:
+    chdir: "{{ splunk_path }}/bin/"
+
+- name: Set Splunk deploy-poll
+  expect:
+    command: ./splunk set deploy-poll {{ splunk_ip }}:8089
+    responses:
+      'Splunk username': "{{ splunk_user }}"
+      'Password:': "{{ splunk_pass }}"
+  args:
+    chdir: "/opt/splunkforwarder/bin/"
+
+    
+- name: Restart Splunk and reload systemd
+  block:
+    - name: Restart Splunk
+      command: nice -n 19 ./splunk restart
+      args:
+        chdir: "{{ splunk_path }}/bin/"
+
+    - name: Reload systemd
+      command: systemctl daemon-reload

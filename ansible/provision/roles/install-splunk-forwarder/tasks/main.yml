@@ -1,0 +1,2 @@
+- include_tasks: install-pexpect.yml
+- include_tasks: install-splunk-forwarder.yml
